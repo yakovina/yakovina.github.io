@@ -1,0 +1,68 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Полиця · Shelf Hunt</title>
+<meta name="description" content="Затишна гра на уважність: знайди все зі списку на полицях до закриття магазину. A cozy seek-and-find game: spot everything on the list before the store closes.">
+<style>
+:root{--ink:#2A1B4A;--dim:#6A5C86;--bg:#FFF8DC;--card:#fff;--accent:#F2457A;--line:#EADFC0;--on-accent:#fff;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#F1ECFF;--dim:#B9AED6;--bg:#1E1633;--card:#2A2046;--accent:#FF7AA2;--line:#3B2F5E;--on-accent:#1E1633;color-scheme:dark}}
+:root[data-theme="dark"]{--ink:#F1ECFF;--dim:#B9AED6;--bg:#1E1633;--card:#2A2046;--accent:#FF7AA2;--line:#3B2F5E;--on-accent:#1E1633;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,"Segoe UI",Rubik,sans-serif}
+main{max-width:920px;margin:0 auto;padding:32px 16px 56px;display:grid;gap:24px}
+header{display:grid;gap:10px;justify-items:start}
+.logo{font:800 clamp(26px,6vw,40px)/1 -apple-system,"Segoe UI",Rubik,sans-serif;letter-spacing:.04em;color:var(--on-accent);background:var(--accent);padding:12px 18px 10px;border-radius:16px;transform:rotate(-2deg)}
+.tag{color:var(--dim);margin:0}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:var(--card);border-radius:18px;padding:20px;display:grid;gap:12px;align-content:start;min-width:0}
+h1{font-size:26px;margin:0;line-height:1.2} h2{font-size:15px;margin:0;color:var(--dim);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+p{margin:0}
+.stores{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;padding:11px 16px;border-radius:12px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600}
+.btn:hover{opacity:.9}
+a{color:var(--accent);overflow-wrap:anywhere}
+a:focus-visible{outline:3px dashed var(--accent);outline-offset:3px}
+ul{margin:0;padding-left:20px} li{margin:2px 0}
+.brands{background:transparent;border:2px dashed var(--line)}
+footer{color:var(--dim);font-size:15px;border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:720px){.cols{grid-template-columns:minmax(0,1fr)}}
+</style>
+<main>
+<header>
+  <div class="logo">ПОЛИЦЯ · SHELF HUNT</div>
+  <p class="tag">Мобільна гра для Android, iPhone — незабаром · A mobile game for Android, iPhone coming soon</p>
+</header>
+
+<div class="cols">
+  <section class="card" lang="uk" aria-labelledby="uk-title">
+    <h2>Українською</h2>
+    <h1 id="uk-title">Полиця</h1>
+    <p>Затишна гра на уважність: знайди все зі списку на полицях до закриття магазину.</p>
+    <div class="stores">
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.yakovina.polytsia">Завантажити в Google Play</a>
+    </div>
+    <p>Гра безкоштовна, з рекламою.</p>
+    <p>Підтримка: <a href="mailto:sonatagames.studio@gmail.com">sonatagames.studio@gmail.com</a></p>
+    <ul>
+      <li><a href="privacy/uk.html">Політика конфіденційності</a></li>
+      <li><a href="terms/uk.html">Умови використання</a></li>
+    </ul>
+  </section>
+
+  <section class="card" lang="en" aria-labelledby="en-title">
+    <h2>In English</h2>
+    <h1 id="en-title">Shelf Hunt</h1>
+    <p>A cozy seek-and-find game: spot everything on the list before the store closes.</p>
+    <div class="stores">
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.yakovina.polytsia">Get it on Google Play</a>
+    </div>
+    <p>Free to play, with ads.</p>
+    <p>Support: <a href="mailto:sonatagames.studio@gmail.com">sonatagames.studio@gmail.com</a></p>
+    <ul>
+      <li><a href="privacy/en.html">Privacy policy</a></li>
+      <li><a href="terms/en.html">Terms of use</a></li>
+    </ul>
+  </section>
+</div>
+
+
+<footer>SonataGames · Київ, Україна · <a href="mailto:sonatagames.studio@gmail.com">sonatagames.studio@gmail.com</a></footer>
+</main></html>

@@ -1,0 +1,50 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Полиця · Shelf Hunt</title>
+<meta name="robots" content="noindex">
+<style>
+:root{--ink:#2A1B4A;--dim:#6A5C86;--bg:#FFF8DC;--card:#fff;--accent:#F2457A;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#F1ECFF;--dim:#B9AED6;--bg:#1E1633;--card:#2A2046;--accent:#FF7AA2;color-scheme:dark}}
+:root[data-theme="dark"]{--ink:#F1ECFF;--dim:#B9AED6;--bg:#1E1633;--card:#2A2046;--accent:#FF7AA2;color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,"Segoe UI",Rubik,sans-serif}
+main{max-width:480px;margin:0 auto;padding:48px 16px;display:grid;gap:16px;text-align:center}
+h1{font-size:28px;margin:0} p{margin:0;color:var(--dim)}
+.stores{display:grid;gap:12px}
+.btn{display:block;padding:14px 16px;border-radius:14px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600}
+a:focus-visible{outline:3px dashed var(--accent);outline-offset:3px}
+</style>
+<main>
+  <h1>Полиця · Shelf Hunt</h1>
+  <p id="msg">Оберіть свій магазин · Choose your store</p>
+  <div class="stores">
+    <a class="btn" id="ios" href="#">App Store (iPhone, iPad)</a>
+    <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=com.yakovina.polytsia">Google Play (Android)</a>
+  </div>
+</main>
+<script>
+// Коротке посилання для соцмереж і QR: iPhone/iPad → App Store, Android → Google Play,
+// усі інші бачать обидві кнопки. ?src=insta передається далі для статистики:
+// у Google Play як referrer (utm_source), в App Store як ct (кампанія; Apple зарахує її, якщо в адресі App Store є pt=…).
+(function () {
+  var APP_STORE = "";   // гри в App Store ще немає — кнопку ховаємо, iPhone бачить Google Play
+  var PLAY = "https://play.google.com/store/apps/details?id=com.yakovina.polytsia";
+  var src = "";
+  try { src = new URLSearchParams(location.search).get("src") || ""; } catch (e) {}
+  src = src.replace(/[^A-Za-z0-9_.-]/g, "").slice(0, 40);
+  function add(url, param) { return url + (url.indexOf("?") < 0 ? "?" : "&") + param; }
+  var ios = src ? add(APP_STORE, "ct=" + encodeURIComponent(src)) : APP_STORE;
+  var play = src ? add(PLAY, "referrer=" + encodeURIComponent("utm_source=" + src + "&utm_medium=go")) : PLAY;
+  document.getElementById("ios").href = ios;
+  if (!/^https:\/\//.test(APP_STORE)) document.getElementById("ios").style.display = "none";
+  document.getElementById("android").href = play;
+  var ua = navigator.userAgent || "";
+  var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var target = isIOS ? ios : (isAndroid ? play : "");
+  // поки адресу магазину не вписано (немає https://), нікуди не переходимо — показуємо кнопки
+  if (/^https:\/\//.test(target)) {
+    document.getElementById("msg").textContent = "Відкриваємо магазин… · Opening the store…";
+    location.replace(target);
+  }
+})();
+</script>
+</html>
