@@ -1,68 +1,253 @@
-<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Полиця · Shelf Hunt</title>
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Полиця · Shelf Hunt — SonataGames</title>
 <meta name="description" content="Затишна гра на уважність: знайди все зі списку на полицях до закриття магазину. A cozy seek-and-find game: spot everything on the list before the store closes.">
+<meta name="theme-color" content="#4FA8F5">
+<link rel="icon" href="img/icon.png">
+<meta property="og:title" content="Полиця · Shelf Hunt">
+<meta property="og:description" content="Знайди все зі списку до закриття магазину · Find everything on the list before the store closes">
+<meta property="og:image" content="https://yakovina.github.io/img/shots/en/01.jpg">
+<meta property="og:url" content="https://yakovina.github.io/">
+<meta name="twitter:card" content="summary_large_image">
 <style>
-:root{--ink:#2A1B4A;--dim:#6A5C86;--bg:#FFF8DC;--card:#fff;--accent:#F2457A;--line:#EADFC0;--on-accent:#fff;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#F1ECFF;--dim:#B9AED6;--bg:#1E1633;--card:#2A2046;--accent:#FF7AA2;--line:#3B2F5E;--on-accent:#1E1633;color-scheme:dark}}
-:root[data-theme="dark"]{--ink:#F1ECFF;--dim:#B9AED6;--bg:#1E1633;--card:#2A2046;--accent:#FF7AA2;--line:#3B2F5E;--on-accent:#1E1633;color-scheme:dark}
+@font-face{font-family:"Rubik";src:url(fonts/rubik.ttf) format("truetype");font-weight:300 900;font-display:swap}
+:root{
+  --ink:#2A1B4A; --pill:#3A2766; --dim:#5B5180;
+  --sky1:#A6DCFF; --sky2:#5BB0F6; --sky3:#3E95E6;
+  --yellow:#FFD21F; --yellow-lip:#D99A00; --pink:#F2457A; --card:#FFFDF6; --cream:#FFF4D6;
+  color-scheme:light;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,"Segoe UI",Rubik,sans-serif}
-main{max-width:920px;margin:0 auto;padding:32px 16px 56px;display:grid;gap:24px}
-header{display:grid;gap:10px;justify-items:start}
-.logo{font:800 clamp(26px,6vw,40px)/1 -apple-system,"Segoe UI",Rubik,sans-serif;letter-spacing:.04em;color:var(--on-accent);background:var(--accent);padding:12px 18px 10px;border-radius:16px;transform:rotate(-2deg)}
-.tag{color:var(--dim);margin:0}
-.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.card{background:var(--card);border-radius:18px;padding:20px;display:grid;gap:12px;align-content:start;min-width:0}
-h1{font-size:26px;margin:0;line-height:1.2} h2{font-size:15px;margin:0;color:var(--dim);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-p{margin:0}
-.stores{display:flex;flex-wrap:wrap;gap:10px}
-.btn{display:inline-block;padding:11px 16px;border-radius:12px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600}
-.btn:hover{opacity:.9}
-a{color:var(--accent);overflow-wrap:anywhere}
-a:focus-visible{outline:3px dashed var(--accent);outline-offset:3px}
-ul{margin:0;padding-left:20px} li{margin:2px 0}
-.brands{background:transparent;border:2px dashed var(--line)}
-footer{color:var(--dim);font-size:15px;border-top:1px solid var(--line);padding-top:16px}
-@media (max-width:720px){.cols{grid-template-columns:minmax(0,1fr)}}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--ink);font:500 18px/1.55 "Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 55%,var(--sky3) 100%) fixed;overflow-x:hidden}
+/* хмарки, як у грі */
+.sky{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.95;
+  background:
+    radial-gradient(60px 38px at 8% 14%,#fff 98%,transparent),radial-gradient(80px 46px at 12% 12%,#fff 98%,transparent),radial-gradient(54px 32px at 16% 15%,#fff 98%,transparent),
+    radial-gradient(70px 40px at 78% 9%,#fff 98%,transparent),radial-gradient(96px 52px at 84% 7%,#fff 98%,transparent),radial-gradient(60px 34px at 90% 10%,#fff 98%,transparent),
+    radial-gradient(64px 36px at 60% 72%,rgba(255,255,255,.55) 98%,transparent),radial-gradient(90px 48px at 65% 70%,rgba(255,255,255,.55) 98%,transparent),
+    radial-gradient(56px 32px at 22% 82%,rgba(255,255,255,.5) 98%,transparent),radial-gradient(80px 44px at 27% 80%,rgba(255,255,255,.5) 98%,transparent)}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 16px}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px dashed var(--ink);outline-offset:4px;border-radius:8px}
+
+/* шапка */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:19px}
+.brand img{width:44px;height:44px;border-radius:12px;border:3px solid var(--ink);box-shadow:0 4px 0 rgba(42,27,74,.35)}
+.lang{display:flex;gap:6px;background:rgba(255,255,255,.55);border:3px solid var(--ink);border-radius:999px;padding:4px}
+.lang button{font:800 14px/1 "Rubik",sans-serif;letter-spacing:.06em;color:var(--ink);background:transparent;border:0;border-radius:999px;padding:9px 14px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
+
+/* перший екран */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:36px;align-items:center;padding:28px 0 46px}
+.title{display:inline-block;margin:0 0 18px;font:900 clamp(44px,8vw,86px)/1 "Rubik",sans-serif;letter-spacing:.01em;color:#fff;
+  background:var(--pink);border:6px solid var(--ink);border-radius:28px;padding:8px 28px 14px;transform:rotate(-2.5deg);
+  box-shadow:0 10px 0 rgba(42,27,74,.35);-webkit-text-stroke:10px var(--ink);paint-order:stroke fill}
+.bubble{position:relative;background:var(--card);border:4px solid var(--ink);border-radius:24px;padding:16px 20px 18px;max-width:520px;
+  box-shadow:0 8px 0 rgba(42,27,74,.28);font-size:clamp(18px,2.1vw,21px);font-weight:600}
+.bubble b{display:block;color:var(--pink);font-weight:800;font-size:15px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.bubble::after{content:"";position:absolute;left:38px;bottom:-18px;width:26px;height:26px;background:var(--card);border-right:4px solid var(--ink);border-bottom:4px solid var(--ink);transform:rotate(45deg)}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:34px}
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;text-decoration:none;font:900 22px/1 "Rubik",sans-serif;color:var(--ink);
+  background:linear-gradient(180deg,#FFE778 0%,var(--yellow) 55%,#F7C200 100%);border:4px solid var(--ink);border-radius:20px;padding:16px 26px 18px;
+  box-shadow:0 7px 0 var(--yellow-lip),0 7px 0 3px var(--ink),0 14px 22px rgba(42,27,74,.25);transition:transform .08s,box-shadow .08s}
+.btn::before{content:"";position:absolute;left:14px;right:14px;top:6px;height:9px;border-radius:9px;background:rgba(255,255,255,.65)}
+.btn:hover{transform:translateY(2px);box-shadow:0 5px 0 var(--yellow-lip),0 5px 0 3px var(--ink),0 10px 18px rgba(42,27,74,.25)}
+.btn:active{transform:translateY(6px);box-shadow:0 1px 0 var(--yellow-lip),0 1px 0 3px var(--ink)}
+.btn svg{width:26px;height:26px;flex:none}
+.chip{display:inline-block;font:800 13px/1 "Rubik",sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--pink);
+  border:3px solid var(--ink);border-radius:999px;padding:7px 12px 6px;transform:rotate(3deg)}
+.small{font-size:15px;font-weight:600;color:var(--ink);opacity:.8;margin-top:14px}
+.art{position:relative;aspect-ratio:1;max-width:420px;justify-self:center;width:100%}
+.art .icon{position:absolute;inset:12%;border-radius:22%;border:6px solid var(--ink);box-shadow:0 14px 0 rgba(42,27,74,.35);transform:rotate(4deg);background:#fff}
+.art .icon img{width:100%;height:100%;border-radius:19%}
+.pack{position:absolute;width:24%;filter:drop-shadow(0 8px 0 rgba(42,27,74,.25));animation:bob 4.5s ease-in-out infinite}
+.pack.p1{left:-4%;top:6%;--r:-12deg}.pack.p2{right:-6%;top:-2%;width:22%;--r:10deg;animation-delay:-1.2s}
+.pack.p3{left:-8%;bottom:0;width:26%;--r:8deg;animation-delay:-2.1s}.pack.p4{right:-4%;bottom:4%;width:23%;--r:-8deg;animation-delay:-3s}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-10px) rotate(var(--r))}}
+
+/* розділи */
+section{padding:30px 0}
+h2{margin:0 0 20px;font:900 clamp(28px,4vw,40px)/1.1 "Rubik",sans-serif;color:#fff;-webkit-text-stroke:8px var(--ink);paint-order:stroke fill;text-shadow:0 5px 0 rgba(42,27,74,.35)}
+.shots{display:grid;grid-auto-flow:column;grid-auto-columns:min(88%,720px);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 4px 22px;scrollbar-width:thin}
+.shots img{width:100%;aspect-ratio:16/9;object-fit:cover;border:4px solid var(--ink);border-radius:20px;box-shadow:0 8px 0 rgba(42,27,74,.3);scroll-snap-align:start;background:#fff}
+.nav{display:flex;gap:10px;justify-content:flex-end;margin-top:-8px}
+.nav button{width:52px;height:52px;border-radius:16px;border:4px solid var(--ink);background:var(--card);color:var(--ink);font:900 22px/1 "Rubik",sans-serif;cursor:pointer;box-shadow:0 5px 0 rgba(42,27,74,.3)}
+.nav button:active{transform:translateY(4px);box-shadow:none}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.card{background:var(--card);border:4px solid var(--ink);border-radius:24px;padding:18px 18px 20px;box-shadow:0 8px 0 rgba(42,27,74,.28);display:grid;gap:8px;align-content:start}
+.card:nth-child(odd){transform:rotate(-1deg)}.card:nth-child(even){transform:rotate(1deg)}
+.card .pic{height:120px;display:grid;place-items:center;background:var(--cream);border:3px solid var(--ink);border-radius:18px;margin-bottom:6px}
+.card .pic img{max-height:100px;width:auto}
+.card h3{margin:0;font:900 21px/1.15 "Rubik",sans-serif}
+.card p{margin:0;font-size:16px;color:var(--dim);font-weight:600}
+.studio{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:center;background:var(--card);border:4px solid var(--ink);border-radius:28px;padding:20px 24px;box-shadow:0 8px 0 rgba(42,27,74,.28)}
+.studio img{width:96px;height:96px;border-radius:24px;border:4px solid var(--ink)}
+.studio h3{margin:0 0 4px;font:900 24px/1.1 "Rubik",sans-serif}
+.studio p{margin:0;font-weight:600;color:var(--dim)}
+.studio a{color:var(--pink);font-weight:800}
+footer{padding:26px 0 40px;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;font-weight:700;font-size:15px}
+footer a{text-decoration:none;background:rgba(255,255,255,.6);border:3px solid var(--ink);border-radius:999px;padding:8px 14px}
+footer span{padding:8px 0}
+
+/* мови: видно лише обрану */
+html[lang="uk"] [data-l="en"],html[lang="en"] [data-l="uk"]{display:none!important}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:20px;padding-top:8px}
+  .art{max-width:300px;order:-1}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:520px){
+  .cards{grid-template-columns:minmax(0,1fr)}
+  .studio{grid-template-columns:minmax(0,1fr);text-align:center;justify-items:center}
+  .btn{font-size:19px;padding:14px 20px 16px}
+  .brand span{display:none}
+}
+@media (prefers-reduced-motion:reduce){.pack{animation:none;transform:rotate(var(--r))}html{scroll-behavior:auto}}
 </style>
-<main>
-<header>
-  <div class="logo">ПОЛИЦЯ · SHELF HUNT</div>
-  <p class="tag">Мобільна гра для Android, iPhone — незабаром · A mobile game for Android, iPhone coming soon</p>
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+<div class="wrap">
+
+<header class="top">
+  <a class="brand" href="./"><img src="img/sonatagames.png" alt=""><span>SonataGames</span></a>
+  <div class="lang" role="group" aria-label="Мова / Language">
+    <button type="button" data-set="uk" aria-pressed="true">УКР</button>
+    <button type="button" data-set="en" aria-pressed="false">ENG</button>
+  </div>
 </header>
 
-<div class="cols">
-  <section class="card" lang="uk" aria-labelledby="uk-title">
-    <h2>Українською</h2>
-    <h1 id="uk-title">Полиця</h1>
-    <p>Затишна гра на уважність: знайди все зі списку на полицях до закриття магазину.</p>
-    <div class="stores">
-      <a class="btn" href="https://play.google.com/store/apps/details?id=com.yakovina.polytsia">Завантажити в Google Play</a>
+<main>
+<section class="hero">
+  <div>
+    <h1 class="title"><span data-l="uk">ПОЛИЦЯ</span><span data-l="en">SHELF HUNT</span></h1>
+    <div class="bubble">
+      <b data-l="uk">Оля пише:</b><b data-l="en">Kate texts:</b>
+      <span data-l="uk">Купи, будь ласка, все зі списку. Тільки швидко — магазин скоро зачиняється!</span>
+      <span data-l="en">Grab everything on the list, please. Quick — the store closes soon!</span>
     </div>
-    <p>Гра безкоштовна, з рекламою.</p>
-    <p>Підтримка: <a href="mailto:sonatagames.studio@gmail.com">sonatagames.studio@gmail.com</a></p>
-    <ul>
-      <li><a href="privacy/uk.html">Політика конфіденційності</a></li>
-      <li><a href="terms/uk.html">Умови використання</a></li>
-    </ul>
-  </section>
+    <div class="cta">
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.yakovina.polytsia">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="#2A1B4A"/></svg>
+        Google Play
+      </a>
+      <span class="chip" data-l="uk">незабаром</span><span class="chip" data-l="en">coming soon</span>
+    </div>
+    <p class="small" data-l="uk">Безкоштовно, з рекламою · українською та англійською · iPhone — незабаром</p>
+    <p class="small" data-l="en">Free to play, with ads · English and Ukrainian · iPhone coming soon</p>
+  </div>
+  <div class="art" aria-hidden="true">
+    <div class="icon"><img src="img/icon.png" alt=""></div>
+    <img class="pack p1" src="img/packs/milk_3.svg" alt="">
+    <img class="pack p2" src="img/packs/coffee_a.svg" alt="">
+    <img class="pack p3" src="img/packs/croiss.svg" alt="">
+    <img class="pack p4" src="img/packs/choc_1.svg" alt="">
+  </div>
+</section>
 
-  <section class="card" lang="en" aria-labelledby="en-title">
-    <h2>In English</h2>
-    <h1 id="en-title">Shelf Hunt</h1>
-    <p>A cozy seek-and-find game: spot everything on the list before the store closes.</p>
-    <div class="stores">
-      <a class="btn" href="https://play.google.com/store/apps/details?id=com.yakovina.polytsia">Get it on Google Play</a>
+<section aria-labelledby="look">
+  <h2 id="look"><span data-l="uk">Як це виглядає</span><span data-l="en">Take a look</span></h2>
+  <div class="shots" id="shots" tabindex="0">
+    <img data-l="uk" src="img/shots/uk/01.jpg" alt="Рівень: полиці з товарами і список Олі" loading="lazy">
+    <img data-l="uk" src="img/shots/uk/02.jpg" alt="Акції, бюджет, 2+1 — 100 рівнів" loading="lazy">
+    <img data-l="uk" src="img/shots/uk/03.jpg" alt="Список дня — один на всіх" loading="lazy">
+    <img data-l="uk" src="img/shots/uk/04.jpg" alt="Коргі ховається на кожному рівні" loading="lazy">
+    <img data-l="uk" src="img/shots/uk/05.jpg" alt="Рецепти в холодильнику" loading="lazy">
+    <img data-l="en" src="img/shots/en/01.jpg" alt="A level: shelves full of products and Kate's list" loading="lazy">
+    <img data-l="en" src="img/shots/en/02.jpg" alt="Sales, budgets, 2-for-1 — 100 levels" loading="lazy">
+    <img data-l="en" src="img/shots/en/03.jpg" alt="Daily list — the same for everyone" loading="lazy">
+    <img data-l="en" src="img/shots/en/04.jpg" alt="A corgi hides on every level" loading="lazy">
+    <img data-l="en" src="img/shots/en/05.jpg" alt="Recipes in the fridge" loading="lazy">
+  </div>
+  <div class="nav">
+    <button type="button" data-dir="-1" aria-label="Назад / Back">‹</button>
+    <button type="button" data-dir="1" aria-label="Далі / Next">›</button>
+  </div>
+</section>
+
+<section aria-labelledby="inside">
+  <h2 id="inside"><span data-l="uk">Що в грі</span><span data-l="en">What's inside</span></h2>
+  <div class="cards">
+    <article class="card">
+      <div class="pic"><img src="img/packs/cook_1.svg" alt=""></div>
+      <h3 data-l="uk">100 рівнів</h3><h3 data-l="en">100 levels</h3>
+      <p data-l="uk">Бюджет на кошик, «найдешевше», акції −20 %, «2+1» і пачки-близнюки.</p>
+      <p data-l="en">Budgets, “the cheapest one”, −20% sales, 2-for-1 deals and look-alike packs.</p>
+    </article>
+    <article class="card">
+      <div class="pic"><img src="img/packs/milk_3.svg" alt=""></div>
+      <h3 data-l="uk">Список дня</h3><h3 data-l="en">Daily list</h3>
+      <p data-l="uk">Щодня один список на всіх. Пройди й порівняй час із друзями.</p>
+      <p data-l="en">One list for everyone, every day. Beat it and compare times with friends.</p>
+    </article>
+    <article class="card">
+      <div class="pic"><img src="img/corgi.png" alt=""></div>
+      <h3 data-l="uk">Коргі</h3><h3 data-l="en">A corgi</h3>
+      <p data-l="uk">Ховається на кожному рівні серед пачок. Помітиш?</p>
+      <p data-l="en">Hides among the packs on every level. Can you spot him?</p>
+    </article>
+    <article class="card">
+      <div class="pic"><img src="img/packs/eggs.svg" alt=""></div>
+      <h3 data-l="uk">Холодильник</h3><h3 data-l="en">The fridge</h3>
+      <p data-l="uk">Знайдені продукти складаються в рецепти — збери всі.</p>
+      <p data-l="en">Everything you find adds up to recipes — collect them all.</p>
+    </article>
+  </div>
+</section>
+
+<section aria-label="SonataGames">
+  <div class="studio">
+    <img src="img/sonatagames.png" alt="SonataGames">
+    <div>
+      <h3>SonataGames</h3>
+      <p data-l="uk">Незалежна студія з Києва. Пишіть: <a href="mailto:sonatagames.studio@gmail.com">sonatagames.studio@gmail.com</a></p>
+      <p data-l="en">An independent studio from Kyiv, Ukraine. Say hi: <a href="mailto:sonatagames.studio@gmail.com">sonatagames.studio@gmail.com</a></p>
     </div>
-    <p>Free to play, with ads.</p>
-    <p>Support: <a href="mailto:sonatagames.studio@gmail.com">sonatagames.studio@gmail.com</a></p>
-    <ul>
-      <li><a href="privacy/en.html">Privacy policy</a></li>
-      <li><a href="terms/en.html">Terms of use</a></li>
-    </ul>
-  </section>
+  </div>
+</section>
+</main>
+
+<footer>
+  <a data-l="uk" href="privacy/uk.html">Політика конфіденційності</a>
+  <a data-l="uk" href="terms/uk.html">Умови використання</a>
+  <a data-l="en" href="privacy/en.html">Privacy policy</a>
+  <a data-l="en" href="terms/en.html">Terms of use</a>
+  <span>© 2026 SonataGames</span>
+</footer>
 </div>
 
-
-<footer>SonataGames · Київ, Україна · <a href="mailto:sonatagames.studio@gmail.com">sonatagames.studio@gmail.com</a></footer>
-</main></html>
+<script>
+(function () {
+  var html = document.documentElement;
+  function set(l) {
+    html.lang = l;
+    document.title = l === "uk" ? "Полиця · Shelf Hunt — SonataGames" : "Shelf Hunt · Полиця — SonataGames";
+    document.querySelectorAll(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.set === l)); });
+    try { localStorage.setItem("lang", l); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem("lang"); } catch (e) {}
+  var langs = navigator.languages || [navigator.language || ""];
+  var guess = langs.some(function (x) { return /^uk/i.test(x); }) ? "uk" : "en";
+  set(saved === "uk" || saved === "en" ? saved : guess);
+  document.querySelectorAll(".lang button").forEach(function (b) {
+    b.addEventListener("click", function () { set(b.dataset.set); });
+  });
+  var shots = document.getElementById("shots");
+  document.querySelectorAll(".nav button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      shots.scrollBy({ left: Number(b.dataset.dir) * shots.clientWidth * 0.85, behavior: "smooth" });
+    });
+  });
+})();
+</script>
+</body>
+</html>

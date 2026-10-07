@@ -1,0 +1,28 @@
+/* Політика й умови — у стилі головної: небо, лавандове чорнило, біла картка з контуром. */
+@font-face{font-family:"Rubik";src:url(fonts/rubik.ttf) format("truetype");font-weight:300 900;font-display:swap}
+:root{--ink:#2A1B4A;--dim:#5B5180;--card:#FFFDF6;--cream:#FFF4D6;--pink:#D62E66;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:500 17px/1.6 "Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:linear-gradient(180deg,#A6DCFF 0,#5BB0F6 480px,#4FA8F5 100%)}
+.bar{max-width:860px;margin:0 auto;padding:18px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.bar a{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:800}
+.bar img{width:42px;height:42px;border-radius:12px;border:3px solid var(--ink)}
+main{max-width:860px;margin:0 auto 48px;background:var(--card);border:4px solid var(--ink);border-radius:28px;
+  padding:26px clamp(18px,4vw,44px) 32px;box-shadow:0 8px 0 rgba(42,27,74,.28)}
+@media (max-width:900px){main{margin:0 16px 40px}}
+h1{font:900 clamp(26px,4.4vw,38px)/1.15 "Rubik",sans-serif;margin:0 0 6px}
+h2{font:800 22px/1.25 "Rubik",sans-serif;margin:30px 0 8px}
+h3{font:800 18px/1.3 "Rubik",sans-serif;margin:18px 0 4px}
+p,li{max-width:70ch}
+.meta{color:var(--dim);margin:0 0 22px;font-weight:600}
+.card{background:var(--cream);border:3px solid var(--ink);border-radius:18px;padding:16px 18px;margin:16px 0;font-weight:600}
+a{color:var(--pink);overflow-wrap:anywhere}
+nav{margin-bottom:16px}
+nav a{display:inline-block;text-decoration:none;color:var(--ink);font-weight:800;font-size:14px;letter-spacing:.05em;
+  border:3px solid var(--ink);border-radius:999px;padding:6px 14px;background:#fff}
+ul{padding-left:22px} li{margin:4px 0}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:15px}
+th,td{border:2px solid var(--ink);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--cream)}
+footer{margin-top:36px;color:var(--dim);font-size:15px;font-weight:600}
+:focus-visible{outline:3px dashed var(--ink);outline-offset:3px}
